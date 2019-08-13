@@ -20,6 +20,7 @@ Bpipe, fastp, STAR, FeatureCounts
 ## Usage
     bpipe pipeline.txt rnaseq_1.fastq.gz rnaseq_2.fastq.gz
 
+Index directory of STAR can be changed at the first line pipeline.txt.
 
 ## Input
 Fastq files
@@ -27,7 +28,9 @@ Fastq files
 
 ## Output
 Enhancer RNA counts matrix will be in ./count/rnaseq.tab
+
 Quality control and trimmed FASTQ file will be in ./trim/rnaseq.fastq.gz
+
 Aligned BAM file will be in ./mapped/rnaseq.bam
 
 ## Downstream analysis
