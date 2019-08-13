@@ -14,13 +14,15 @@ Bpipe, fastp, STAR, FeatureCounts
     
 
 ## Install
-    git clone https://github.com/wuycbio/ERA.git
+    git clone https://github.com/fun-science-club-ntu/ERA
 
 
 ## Usage
     bpipe pipeline.txt rnaseq_1.fastq.gz rnaseq_2.fastq.gz
 
 Index directory of STAR can be changed at the first line pipeline.txt.
+
+This pipeline now supports the Homo sapiens (hg19).
 
 ## Input
 Fastq files
@@ -34,7 +36,7 @@ Quality control and trimmed FASTQ file will be in ./trim/rnaseq.fastq.gz
 Aligned BAM file will be in ./mapped/rnaseq.bam
 
 ## Downstream analysis
-We recommand GREAT for functional enrichment analysis and Deseq2 for differential expression analysis.
+We recommand GREAT (http://great.stanford.edu/public/html/) for functional enrichment analysis and Deseq2 (https://bioconductor.org/packages/release/bioc/html/DESeq2.html) for differential expression analysis.
 
 
 ## Contact
