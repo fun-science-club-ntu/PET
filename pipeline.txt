@@ -1,15 +1,20 @@
 INDEX_STAR="~/starindex/genecode_19"
+ENHANCER_REF="ref/hg19_enhancer.gtf"
+THREADS=8
+
+
+
 
 qc = {
     exec """
     mkdir -p trim;
-    fastp -w 10 -i $input1.gz -I $input2.gz  -o trim/$input1.gz -O trim/$input2.gz
+    fastp -w $THREADS  -i $input1.gz -I $input2.gz  -o trim/$input1.gz -O trim/$input2.gz
     """
 }
 
 
 align = {
-    exec "STAR --genomeDir $INDEX_STAR --runThreadN 10 --readFilesIn trim/$input1.gz trim/$input2.gz  --outFileNamePrefix $input1  --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --quantMode GeneCounts --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --outFilterMultimapNmax 100 --winAnchorMultimapNmax 100 --limitIObufferSize 300000000 --genomeLoad NoSharedMemory"
+    exec "STAR --genomeDir $INDEX_STAR --runThreadN $THREADS --readFilesIn trim/$input1.gz trim/$input2.gz  --outFileNamePrefix $input1  --readFilesCommand zcat --outSAMtype BAM SortedByCoordinate --quantMode GeneCounts --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverLmax 0.04 --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000 --outFilterMultimapNmax 100 --winAnchorMultimapNmax 100 --limitIObufferSize 300000000 --genomeLoad NoSharedMemory"
 }
 
 star = {
@@ -17,7 +22,7 @@ star = {
     transform("(.*)_1.fastq.gz","(.*)_2.fastq.gz") to ("\$1.Aligned.out.bam") {
     exec """
         STAR --genomeDir $INDEX_STAR --readFilesIn trim/$input1.gz trim/$input2.gz
-        --outFileNamePrefix ${output.prefix.prefix.prefix}. --readFilesCommand zcat --outSAMtype BAM Unsorted --runThreadN 10
+        --outFileNamePrefix ${output.prefix.prefix.prefix}. --readFilesCommand zcat --outSAMtype BAM Unsorted --runThreadN $THREADS
     ""","star2pass"
   }
 }
@@ -28,7 +33,7 @@ quantify_enhancer = {
 
     exec """
          mkdir -p counts;
-         featureCounts -T 5 -p -t peak  -g peak_id -a ~/reference/hg19_enhancer.gtf  -o  ${output.tab}    $inputs.bam
+         featureCounts -T $THREADS -p -t peak  -g peak_id -a $ENHANCER_REF  -o  ${output.tab}    $inputs.bam
     """
 }}
 
