@@ -1,8 +1,11 @@
-# ERA [![travis](https://travis-ci.org/ssadedin/bpipe.svg?branch=master)](https://travis-ci.org/ssadedin/bpipe)
+# PET [![travis](https://travis-ci.org/ssadedin/bpipe.svg?branch=master)](https://travis-ci.org/ssadedin/bpipe)
 
-ERA: Enhancer RNA Aligner, a tool for quantify active enhancer RNAs from RNA-seq data
+PET: a Pipeline for Enhancer Transcription, a tool for quantify active enhancer RNAs from RNA-seq data
 
 The aim of this project is to quantify transcribed enhancers with a simple command. We will keep on updating it.
+
+## PET online
+http://fun-science.club/PET
 
 ## Requirements
 Bpipe, fastp, STAR, FeatureCounts
@@ -14,7 +17,7 @@ Bpipe, fastp, STAR, FeatureCounts
     
 
 ## Install
-    git clone https://github.com/fun-science-club-ntu/ERA
+    git clone https://github.com/fun-science-club-ntu/PET
 
 
 ## Usage
